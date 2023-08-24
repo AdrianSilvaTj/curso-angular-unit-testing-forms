@@ -5,6 +5,7 @@ import { Person } from './../../models/person';
 
 import { PersonComponent } from './person.component';
 import { first } from 'rxjs/operators';
+import { clickEvent, getText } from '@testing';
 
 describe('PersonComponent', () => {
   let component: PersonComponent;
@@ -77,24 +78,23 @@ describe('PersonComponent', () => {
   it('should display un text with IMC', () => {
     // Arrange
     const expectText = 'overweight';
-    const button = debugElement.query(By.css('.btn-imc')).nativeElement;
     // Act
     component.calcIMC();
     fixture.detectChanges();
+    const textBtn = getText(fixture, 'btn-imc');
     // Assert
-    expect(button.textContent).toContain(expectText);
+    expect(textBtn).toContain(expectText);
   });
 
   it('should display un text with IMC with click', () => {
     // Arrange
     const expectText = 'overweight';
-    const buttonDe = debugElement.query(By.css('.btn-imc'));
-    const buttonEl = buttonDe.nativeElement;
     // Act
-    buttonDe.triggerEventHandler('click', null);
+    clickEvent(fixture,'btn-imc', true);
     fixture.detectChanges();
     // Assert
-    expect(buttonEl.textContent).toContain(expectText);
+    const textBtn = getText(fixture, 'btn-imc');
+    expect(textBtn).toContain(expectText);
   });
 
   it('should raise selected event when clicked', () => {

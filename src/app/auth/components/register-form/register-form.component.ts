@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MyValidators } from './../../../utils/validators';
 
 import { UsersService } from './../../../services/user.service';
+import { CreateUserDTO } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-register-form',
@@ -34,7 +35,8 @@ export class RegisterFormComponent implements OnInit {
   register(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
-      const value = this.form.value;
+      const value:CreateUserDTO = this.form.value;
+      value.avatar ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo-CujXEB_pHNjg6VnEKrUJW-sgY-6glbQhw&usqp=CAU";
       this.usersService.create(value)
       .subscribe((rta) => {
         console.log(rta);
